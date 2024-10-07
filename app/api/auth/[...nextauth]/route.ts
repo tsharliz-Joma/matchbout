@@ -12,8 +12,8 @@ export const authOptions = {
     signIn: "/auth/signin",
   },
   callbacks: {
-    // Add user acess token and user id to the JWT token
-    async jwt({ token, user, account }) {
+    // Add user access token and user id to the JWT token
+    async jwt({token, user, account}) {
       if (account && user) {
         token.accessToken = account.access_token;
         token.id = user.id;
@@ -21,15 +21,23 @@ export const authOptions = {
       return token;
     },
     // Add token and token id to the session token
-    async session({ session, token }) {
+    async session({session, token}) {
       session.accessToken = token.accessToken;
       session.user.id = token.id;
       return session;
     },
+  },
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 60,
+    updateAge: 20 * 60,
+  },
+  jwt: {
+    maxAge: 30 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
   debug: false,
 };
 
 const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+export {handler as GET, handler as POST};

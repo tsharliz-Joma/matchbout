@@ -1,8 +1,8 @@
 "use client";
-import React, { forwardRef } from "react";
-import { cn } from "@/app/lib/untils";
+import React, {forwardRef} from "react";
+import {cn} from "@/app/lib/utils";
 
-const Button = forwardRef(({ onClick, className, children, ...props }, ref) => {
+const Button = forwardRef(({onClick, className, children, ...props}, ref) => {
   return (
     <button onClick={onClick} className={(cn(""), props)}>
       {children}
@@ -11,4 +11,4 @@ const Button = forwardRef(({ onClick, className, children, ...props }, ref) => {
 });
 
 Button.displayName = "Button";
-export { Button };
+export default Button;
