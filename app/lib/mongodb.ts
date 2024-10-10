@@ -15,20 +15,20 @@ if (!cached) {
 }
 
 export const connectToDatabase = async () => {
-  if (cached.conn) {
-    return cached.conn;
+  if (cached.connection) {
+    console.log(cached.connection)
+    return cached.connection;
   }
 
   if (!cached.promise) {
     const options = {
       bufferCommands: false,
     };
-
     cached.promise = mongoose.connect(MONGODB_URI, options).then((mongoose) => {
       return mongoose;
     });
   }
 
-  cached.conn = await cached.promise;
-  return cached.conn;
+  cached.connection = await cached.promise;
+  return cached.connection;
 };
