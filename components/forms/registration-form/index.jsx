@@ -1,14 +1,20 @@
 "use client";
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, FormEvent, useRef} from "react";
 import {AlertCircle, MapPin} from "lucide-react";
 import {useGeolocation} from "@/hooks/useGeolocation";
 import {getCityFromCoordinates} from "@/app/lib/utils";
+import {useRouter} from "next/navigation";
+import Link from "next/link";
+import {register} from "@/actions/register";
 
 const RegistrationForm = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [city, setCity] = useState("");
   const {location, error: geoError, loading} = useGeolocation();
   const [geocodingError, setGeocodingError] = useState(null);
+  const [error, setError] = useState();
+  const router = useRouter();
+  const ref = useRef(null);
 
   // useEffect(() => {
   //   if (location) {
@@ -24,14 +30,24 @@ const RegistrationForm = () => {
   //   }
   // }, [location]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (formData) => {
     e.preventDefault();
-    try {
-
-    } catch (error) {
-      console.error(error);
+    console.log(formData)
+    const res = await register({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+      phone: formData.get("phoneNumber"),
+      location: formData.get("city"),
+      profilePicture: formData.get("profilePicture"),
+    });
+    ref.current?.reset();
+    if (res?.error) {
+      setError(r.error);
+      return;
+    } else {
+      return router.push("/login");
     }
-    console.log("Form submitted");
   };
 
   const handleConfirmPassword = (event) => {
@@ -47,27 +63,13 @@ const RegistrationForm = () => {
             <label
               htmlFor="firstName"
               className="block text-sm font-medium text-gray-700">
-              First Name
+              Full Name
             </label>
             <input
               id="firstName"
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
               focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="John"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <label
-              htmlFor="lastName"
-              className="block text-sm font-medium text-gray-700">
-              Last Name
-            </label>
-            <input
-              id="lastName"
-              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
-              focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              placeholder="Doe"
               required
             />
           </div>

@@ -18,7 +18,8 @@
       "@/app/*": ["app/*"],
       "@/lib/*": ["lib/*"],
       "@/models/*": ["models/*"],
-      "@/hooks/*" : ["hooks/*"]
+      "@/hooks/*": ["hooks/*"],
+      "@/actions/*": ["actions/*"]
     },
     "plugins": [
       {

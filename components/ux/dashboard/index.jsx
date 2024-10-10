@@ -1,5 +1,5 @@
 import {getServerSession} from "next-auth";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {authOptions} from "@/app/lib/auth";
 import {redirect} from "next/navigation";
 import AuthButton from "../button";
 
@@ -7,8 +7,10 @@ const Dashboard = async () => {
   // Get the session server-side
   const session = await getServerSession(authOptions);
 
+  console.log(session);
+
   if (!session) {
-    redirect("/auth/signin");
+    redirect("/login");
   }
 
   return (
