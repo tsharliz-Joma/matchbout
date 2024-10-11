@@ -1,14 +1,16 @@
 "use client";
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {useRouter} from "next/navigation";
 
 const NewCoach = () => {
+  const formRef = useRef(null)
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     profilePicture: null,
     location: {lat: 0, lng: 0},
   });
+
 
   const handleFileChange = (e) => {
     setFormData({...formData, profilePicture: e.target.files[0]});
@@ -36,9 +38,9 @@ const NewCoach = () => {
   };
 
   const createCoach = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    // Prevent the default form submission behavior
 
-    const formDataToSend = new FormData();
+    const formDataToSend = new FormData(formData);
     formDataToSend.append("name", formData.name);
     formDataToSend.append("lat", formData.location.lat.toString()); // Convert lat to string
     formDataToSend.append("lng", formData.location.lng.toString()); // Convert lng to string
@@ -51,6 +53,7 @@ const NewCoach = () => {
         method: "POST",
         body: formDataToSend,
       });
+      console.log(formDataToSend);
 
       if (response.ok) {
         console.log("Coach created successfully!");
@@ -69,10 +72,7 @@ const NewCoach = () => {
         <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
           Create New Coach
         </h1>
-        <form
-          className="space-y-4 text-gray-800"
-          onSubmit={createCoach}
-          encType="multipart/form-data">
+        <form className="space-y-4 text-gray-800" action={createCoach} formRef={formRef}>
           {/* Name Field */}
           <div>
             <label

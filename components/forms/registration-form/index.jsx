@@ -1,23 +1,22 @@
-"use client";
-import React, {useState, useEffect, FormEvent, useRef} from "react";
+'use client'
+import React, {useState, useRef} from "react";
 import {AlertCircle, MapPin} from "lucide-react";
 import {useGeolocation} from "@/hooks/useGeolocation";
 import {getCityFromCoordinates} from "@/app/lib/utils";
 import {useRouter} from "next/navigation";
-import Link from "next/link";
-import {register} from "@/actions/register";
 
-const RegistrationForm = () => {
+const RegistrationForm = ({handleSubmit}) => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [city, setCity] = useState("");
   const {location, error: geoError, loading} = useGeolocation();
   const [geocodingError, setGeocodingError] = useState(null);
   const [error, setError] = useState();
   const router = useRouter();
-  const ref = useRef(null);
+  const formRef = useRef(null);
 
   // useEffect(() => {
   //   if (location) {
+  //     console.log(location);
   //     getCityFromCoordinates(location.latitude, location.longitude)
   //       .then((cityName) => {
   //         setCity(cityName);
@@ -28,25 +27,31 @@ const RegistrationForm = () => {
   //         setGeocodingError("Failed to get city name");
   //       });
   //   }
-  // }, [location]);
+  // }, []);
 
-  const handleSubmit = async (formData) => {
-    e.preventDefault();
-    console.log(formData)
-    const res = await register({
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-      phone: formData.get("phoneNumber"),
-      location: formData.get("city"),
-      profilePicture: formData.get("profilePicture"),
-    });
-    ref.current?.reset();
-    if (res?.error) {
-      setError(r.error);
-      return;
-    } else {
-      return router.push("/login");
+
+
+  const onSubmit = () => {
+    if (formRef.current) {
+      if (formRef.current.checkValidity()) {
+        const formData = new FormData(formRef.current);
+        form.requestSubmit()
+        handleSubmit(formData);
+      } else {
+        const inputs = Array.prototype.slice.all(
+          formRef.current.getElementsByTagName("input"),
+        );
+        inputs.forEach((input) => {
+          const feedback = input.nextElementSibling;
+          if (!input.checkValidity()) {
+            input.classList.add(`text-red-500`);
+            feedback.classList.remove("hidden");
+          } else {
+            input.classList.remove(`text-red-500`);
+            feedback.classList.add("hidden");
+          }
+        });
+      }
     }
   };
 
@@ -57,16 +62,36 @@ const RegistrationForm = () => {
 
   return (
     <div className="w-full max-w-2xl mx-auto bg-white !text-black shadow-md rounded-lg overflow-hidden p-4 sm:p-6 md:p-8">
-      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+      <form
+        noValidate
+        ref={formRef}
+        action={onSubmit}
+        className="space-y-4 sm:space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label
               htmlFor="firstName"
               className="block text-sm font-medium text-gray-700">
-              Full Name
+              first Name
             </label>
             <input
               id="firstName"
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
+              focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              placeholder="John"
+              required
+            />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label
+              htmlFor="lastName"
+              className="block text-sm font-medium text-gray-700">
+              last name
+            </label>
+            <input
+              id="lsatName"
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
               focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="John"

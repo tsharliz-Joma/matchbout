@@ -30,6 +30,7 @@ async function getCityFromCoordinates(latitude, longitude) {
 
     const city = cityComponent ? cityComponent.long_name : "Unknown location";
 
+    console.log(city);
 
     return city;
   } catch (error) {

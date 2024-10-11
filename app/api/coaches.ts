@@ -12,6 +12,7 @@ import {
 } from "@/app/lib/validation/coachValidation";
 
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log(req)
   await connectToDatabase();
 
   switch (req.method) {
