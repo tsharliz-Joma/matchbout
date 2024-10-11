@@ -7,13 +7,15 @@ const RegistrationPage = () => {
 
   const handleSubmit = async (data) => {
     const submitData = {
-      name: `${data.get("firstname")} ${data.get("lastname")}`,
+      name: `${data.get("firstName")} ${data.get("lastName")}`,
       email: data.get("email"),
       password: data.get("password"),
       phone: data.get("phoneNumber"),
       profilePicture: data.get("profilePicture"),
       location: data.get(""),
     };
+
+    console.log(submitData)
   };
 
   return (

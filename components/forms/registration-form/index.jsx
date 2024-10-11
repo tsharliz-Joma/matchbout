@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, {useState, useRef} from "react";
 import {AlertCircle, MapPin} from "lucide-react";
 import {useGeolocation} from "@/hooks/useGeolocation";
@@ -29,13 +29,10 @@ const RegistrationForm = ({handleSubmit}) => {
   //   }
   // }, []);
 
-
-
   const onSubmit = () => {
     if (formRef.current) {
       if (formRef.current.checkValidity()) {
         const formData = new FormData(formRef.current);
-        form.requestSubmit()
         handleSubmit(formData);
       } else {
         const inputs = Array.prototype.slice.all(
@@ -76,6 +73,7 @@ const RegistrationForm = ({handleSubmit}) => {
             </label>
             <input
               id="firstName"
+              name="firstName"
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
               focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               placeholder="John"
@@ -91,10 +89,11 @@ const RegistrationForm = ({handleSubmit}) => {
               last name
             </label>
             <input
-              id="lsatName"
+              id="lastName"
+              name="lastName"
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
               focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              placeholder="John"
+              placeholder="Doe"
               required
             />
           </div>
@@ -107,6 +106,7 @@ const RegistrationForm = ({handleSubmit}) => {
           </label>
           <input
             id="email"
+            name="email"
             type="email"
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
@@ -122,6 +122,7 @@ const RegistrationForm = ({handleSubmit}) => {
           </label>
           <input
             id="password"
+            name="password"
             type="password"
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
@@ -136,6 +137,7 @@ const RegistrationForm = ({handleSubmit}) => {
           </label>
           <input
             id="confirmPassword"
+            name="confirmPassword"
             type="password"
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
               focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
@@ -157,6 +159,7 @@ const RegistrationForm = ({handleSubmit}) => {
           </label>
           <input
             id="profilePicture"
+            name="profilePicture"
             type="file"
             accept="image/*"
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm
@@ -172,6 +175,7 @@ const RegistrationForm = ({handleSubmit}) => {
           </label>
           <input
             id="phoneNumber"
+            name="phoneNumber"
             type="tel"
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
@@ -187,6 +191,7 @@ const RegistrationForm = ({handleSubmit}) => {
           <div className="relative">
             <input
               id="city"
+              name="city"
               value={city}
               onChange={(e) => setCity(e.target.value)}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
