@@ -5,14 +5,13 @@ import {
   deleteCoach,
   getCoaches,
   updateCoach,
-} from "@/app/lib/repositories/coachRepository";
+} from "@/app/lib/mongodb-actions/coach";
 import {
   sanitizeCoachData,
   validateRequest,
 } from "@/app/lib/validation/coachValidation";
 
 export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(req)
   await connectToDatabase();
 
   switch (req.method) {

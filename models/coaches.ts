@@ -6,7 +6,6 @@ export interface ICoach extends Document {
   password: string;
   phone: string;
   location: string;
-  profilePicture?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -27,10 +26,8 @@ const CoachSchema: Schema = new Schema({
     required: true,
   },
   location: {
-    lat: {type: Number, required: true},
-    lng: {type: Number, required: true},
+    type: String,
   },
-  profilePicture: {type: String, Default: ""},
   createdAt: {type: Date, Default: Date.now},
   updatedAt: {type: Date, Default: Date.now},
 });

@@ -14,21 +14,6 @@ const RegistrationForm = ({handleSubmit}) => {
   const router = useRouter();
   const formRef = useRef(null);
 
-  // useEffect(() => {
-  //   if (location) {
-  //     console.log(location);
-  //     getCityFromCoordinates(location.latitude, location.longitude)
-  //       .then((cityName) => {
-  //         setCity(cityName);
-  //         setGeocodingError(null);
-  //       })
-  //       .catch((err) => {
-  //         console.error("Error getting city name:", err);
-  //         setGeocodingError("Failed to get city name");
-  //       });
-  //   }
-  // }, []);
-
   const onSubmit = () => {
     if (formRef.current) {
       if (formRef.current.checkValidity()) {
