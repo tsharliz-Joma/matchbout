@@ -7,7 +7,6 @@ if (!MONGODB_URI) {
     "Please define the MONGODB_URI environment variable inside .env",
   );
 }
-
 // Use global to prevent creating multiple connections in development mod
 let cached = global.mongoose;
 if (!cached) {
@@ -16,7 +15,6 @@ if (!cached) {
 
 export const connectToDatabase = async () => {
   if (cached.connection) {
-    console.log(cached.connection)
     return cached.connection;
   }
 

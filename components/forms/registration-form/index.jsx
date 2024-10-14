@@ -1,5 +1,5 @@
 "use client";
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import {AlertCircle, MapPin} from "lucide-react";
 import {useGeolocation} from "@/hooks/useGeolocation";
 import {getCityFromCoordinates} from "@/app/lib/utils";
@@ -13,21 +13,36 @@ const RegistrationForm = ({handleSubmit}) => {
   const [error, setError] = useState();
   const router = useRouter();
   const formRef = useRef(null);
+  const [detectingLocation, setDetectingLocation] = useState(false);
 
-  // useEffect(() => {
-  //   if (location) {
-  //     console.log(location);
-  //     getCityFromCoordinates(location.latitude, location.longitude)
-  //       .then((cityName) => {
-  //         setCity(cityName);
-  //         setGeocodingError(null);
-  //       })
-  //       .catch((err) => {
-  //         console.error("Error getting city name:", err);
-  //         setGeocodingError("Failed to get city name");
-  //       });
-  //   }
-  // }, []);
+  const detectLocation = async () => {
+    setDetectingLocation(true);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const {latitude, longitude} = position.coords;
+          try {
+            const cityName = await getCityFromCoordinates(latitude, longitude);
+            setCity(cityName);
+            setGeocodingError(null);
+          } catch (error) {
+            console.error("Error getting city name:", error);
+            setGeocodingError("Failed to get city name");
+          } finally {
+            setDetectingLocation(false);
+          }
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          setGeocodingError("Unable to detect location");
+          setDetectingLocation(false);
+        },
+      );
+    } else {
+      setGeocodingError("Geolocation is not supported by this browser.");
+      setDetectingLocation(false);
+    }
+  };
 
   const onSubmit = () => {
     if (formRef.current) {
@@ -179,7 +194,7 @@ const RegistrationForm = ({handleSubmit}) => {
             type="tel"
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            placeholder="+1 (555) 123-4567"
+            placeholder="+61 433 222 111"
           />
         </div>
         <div className="space-y-2">
@@ -190,6 +205,7 @@ const RegistrationForm = ({handleSubmit}) => {
           </label>
           <div className="relative">
             <input
+              required
               id="city"
               name="city"
               value={city}
@@ -210,6 +226,14 @@ const RegistrationForm = ({handleSubmit}) => {
             </p>
           )}
         </div>
+        <button
+          type="button" // This button triggers geolocation detection
+          className="mt-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+          onClick={detectLocation}
+          disabled={detectingLocation} // Disable button while detecting
+        >
+          {detectingLocation ? "Detecting..." : "Use My Location"}
+        </button>
         <button
           type="submit"
           className="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">

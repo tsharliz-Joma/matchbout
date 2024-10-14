@@ -5,16 +5,22 @@ export interface LocationType {
 
 export interface CoachDataType {
   name: string;
-  location: LocationType;
-  profilePicture?: File | null;
+  location: any;
+  profilePicture?: {
+    type: Object;
+    required: false;
+  };
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface UpdateCoachDataType {
   name?: string;
-  location?: LocationType;
-  profilePicture?: string;
+  location?: any;
+  profilePicture?: {
+    type: Object;
+    required: false;
+  };
   updatedAt?: Date;
 }
 

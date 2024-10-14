@@ -3,8 +3,6 @@ import React, {useState, useEffect} from "react";
 import RegistrationForm from "@/components/forms/registration-form";
 
 const RegistrationPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleSubmit = async (data) => {
     const submitData = {
       name: `${data.get("firstName")} ${data.get("lastName")}`,
@@ -15,7 +13,22 @@ const RegistrationPage = () => {
       location: data.get(""),
     };
 
-    console.log(submitData)
+    try {
+      const response = await fetch("api/register", {
+        method: "POST",
+        body: JSON.stringify(submitData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        console.log("Registration successful");
+      } else {
+        console.error("Error registering user");
+      }
+    } catch (e) {
+      setShowError(true);
+    }
   };
 
   return (

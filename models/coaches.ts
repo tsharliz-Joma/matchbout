@@ -11,29 +11,30 @@ export interface ICoach extends Document {
   updatedAt: Date;
 }
 
-const CoachSchema: Schema = new Schema({
-  name: {type: String, required: [true, "Name is Required"], trim: true},
-  email: {
-    type: String,
-    unique: true,
-    required: [true, "Email is Required"],
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Email is invalid",
-    ],
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  location: {
-    lat: {type: Number, required: true},
-    lng: {type: Number, required: true},
-  },
-  profilePicture: {type: String, Default: ""},
-  createdAt: {type: Date, Default: Date.now},
-  updatedAt: {type: Date, Default: Date.now},
-});
+const CoachSchema: Schema = new Schema(
+  {
+    name: {type: String, required: [true, "Name is Required"], trim: true},
+    email: {
+      type: String,
+      unique: true,
+      required: [true, "Email is Required"],
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        "Email is invalid",
+      ],
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+    },
+    profilePicture: {type: String, Default: ""},
+    createdAt: {type: Date, Default: Date.now},
+    updatedAt: {type: Date, Default: Date.now},
+  }
+);
 
 CoachSchema.pre("save", function (next) {
   this.updatedAt = new Date();
