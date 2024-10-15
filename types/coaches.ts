@@ -1,20 +1,13 @@
-export interface LocationType {
-  lat: number;
-  lng: number;
-}
-
 export interface CoachDataType {
   name: string;
-  location: LocationType;
-  profilePicture?: File | null;
+  city: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface UpdateCoachDataType {
   name?: string;
-  location?: LocationType;
-  profilePicture?: string;
+  city?: string;
   updatedAt?: Date;
 }
 

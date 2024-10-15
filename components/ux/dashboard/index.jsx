@@ -6,9 +6,6 @@ import AuthButton from "../button";
 const Dashboard = async () => {
   // Get the session server-side
   const session = await getServerSession(authOptions);
-
-  console.log(session);
-
   if (!session) {
     redirect("/login");
   }

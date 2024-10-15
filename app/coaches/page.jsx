@@ -53,10 +53,8 @@ const NewCoach = () => {
         method: "POST",
         body: formDataToSend,
       });
-      console.log(formDataToSend);
 
       if (response.ok) {
-        console.log("Coach created successfully!");
         router.push("/dashboard");
       } else {
         console.error("Failed to create coach");

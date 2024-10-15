@@ -34,7 +34,6 @@ export const authOptions = {
           credentials!.password,
           coach.password,
         );
-        console.log(coach);
         return coach;
       },
     }),
@@ -48,7 +47,6 @@ export const authOptions = {
       if (account && user) {
         token.accessToken = account.access_token;
         token.id = user.id;
-        console.log(user);
       }
       return token;
     },

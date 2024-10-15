@@ -22,6 +22,6 @@ export const register = async (values: any) => {
     });
     const savedUser = await user.save();
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };

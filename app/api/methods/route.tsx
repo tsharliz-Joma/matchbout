@@ -7,32 +7,18 @@ import {
   updateCoach,
 } from "@/app/lib/mongodb-actions/coach";
 
-export async function POST(req: Request) {
+export async function POST(req: Request, res: Response) {
   await connectToDatabase();
   const body = await req.json();
-
   try {
-    await createCoach(body);
-
+    await createCoach(body, res).then((response) => {
+      return res.json();
+    });
     return Response.json({message: "Coach added successfully"}, {status: 201});
   } catch (err) {
     return Response.json({error: "Failed to add coach"}, {status: 500});
   }
-  // const newCoach = await createCoach(data);
-  // res.status(201).json({success: true, data: newCoach});
-  // try {
-  //   for (const validation of sanitizeCoachData) {
-  //     await validation.run(req);
-  //   }
-  //   validateRequest(req, res, async () => {
-  //     const newCoach = await createCoach(req.body);
-  //     res.status(201).json({success: true, data: newCoach});
-  //   });
-  // } catch (error) {
-  //   res.status(400).json({success: false, error: error.message});
-  // }
 }
-
 // export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 //   await connectToDatabase();
 

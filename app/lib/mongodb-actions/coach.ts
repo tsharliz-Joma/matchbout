@@ -6,14 +6,14 @@ export const getCoaches = async (location?: String) => {
   return location ? Coach.find({location}) : Coach.find({});
 };
 
-export const createCoach = async (coachData: CoachDataType) => {
+export const createCoach = async (coachData: CoachDataType, $res: any) => {
   const newCoach = new Coach(coachData);
   try {
-    await newCoach.save().then((response: any) => {
-      return response.json({status: "ok", message: "New coach created"});
+    await newCoach.save().then((res: any) => {
+      return $res.json({status: "ok"});
     });
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
 };
 

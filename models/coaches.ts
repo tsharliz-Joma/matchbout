@@ -5,7 +5,7 @@ export interface ICoach extends Document {
   email: string;
   password: string;
   phone: string;
-  location: string;
+  city: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -25,7 +25,7 @@ const CoachSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  location: {
+  city: {
     type: String,
   },
   createdAt: {type: Date, Default: Date.now},

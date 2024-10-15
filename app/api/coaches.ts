@@ -29,7 +29,6 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     case "POST":
       try {
-        console.log(req.body);
         for (const validation of sanitizeCoachData) {
           await validation.run(req);
         }

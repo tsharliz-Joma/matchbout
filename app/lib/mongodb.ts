@@ -16,7 +16,6 @@ if (!cached) {
 
 export const connectToDatabase = async () => {
   if (cached.connection) {
-    console.log(cached.connection)
     return cached.connection;
   }
 

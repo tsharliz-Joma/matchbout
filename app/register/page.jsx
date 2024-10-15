@@ -3,19 +3,38 @@ import React, {useState, useEffect} from "react";
 import RegistrationForm from "@/components/forms/registration-form";
 
 const RegistrationPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (data) => {
+    setLoading(true);
     const submitData = {
       name: `${data.get("firstName")} ${data.get("lastName")}`,
       email: data.get("email"),
       password: data.get("password"),
       phone: data.get("phoneNumber"),
-      profilePicture: data.get("profilePicture"),
-      location: data.get(""),
+      city: data.get("city"),
     };
 
-    console.log(submitData)
+    try {
+      const response = await fetch("api/methods", {
+        method: "POST",
+        body: JSON.stringify(submitData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setSuccess(true);
+      } else {
+        setError(true);
+      }
+    } catch (error) {
+      setError(true);
+      console.error(error);
+    }
   };
 
   return (
