@@ -1,17 +1,14 @@
-import Coach from "@/models/coaches";
-import {CoachDataType} from "types/coaches";
-import {UpdateCoachDataType} from "types/coaches";
+import Coach from "@/models/coachModel";
+import {CoachDataType, UpdateCoachDataType} from "types/coach_type";
 
 export const getCoaches = async (location?: String) => {
   return location ? Coach.find({location}) : Coach.find({});
 };
 
-export const createCoach = async (coachData: CoachDataType, $res: any) => {
+export const createCoach = async (coachData: CoachDataType) => {
   const newCoach = new Coach(coachData);
   try {
-    await newCoach.save().then((res: any) => {
-      return $res.json({status: "ok"});
-    });
+    await newCoach.save();
   } catch (e) {
     console.error(e);
   }

@@ -1,13 +1,7 @@
 "use client";
 import {SessionProvider, signIn} from "next-auth/react";
 
-
 const Login = () => {
-
-
-
-
-
   return (
     <SessionProvider>
       <div className="flex items-center justify-center min-h-screen bg-gray-100">

@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import Coach from "@/models/coaches";
+import Coach from "@/models/coachModel";
 import {connectToDatabase} from "./mongodb";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";

@@ -1,17 +1,14 @@
 "use client";
-import React, {useState, useRef, useEffect} from "react";
+import React, {useState, useRef} from "react";
 import {AlertCircle, MapPin} from "lucide-react";
 import {useGeolocation} from "@/hooks/useGeolocation";
 import {getCityFromCoordinates} from "@/app/lib/utils";
-import {useRouter} from "next/navigation";
 
 const RegistrationForm = ({handleSubmit}) => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [city, setCity] = useState("");
   const {location, error: geoError, loading} = useGeolocation();
   const [geocodingError, setGeocodingError] = useState(null);
-  const [error, setError] = useState();
-  const router = useRouter();
   const formRef = useRef(null);
   const [detectingLocation, setDetectingLocation] = useState(false);
 
@@ -50,17 +47,17 @@ const RegistrationForm = ({handleSubmit}) => {
         const formData = new FormData(formRef.current);
         handleSubmit(formData);
       } else {
-        const inputs = Array.prototype.slice.all(
+        const inputs = Array.prototype.slice.call(
           formRef.current.getElementsByTagName("input"),
         );
         inputs.forEach((input) => {
           const feedback = input.nextElementSibling;
           if (!input.checkValidity()) {
             input.classList.add(`text-red-500`);
-            feedback.classList.remove("hidden");
+            feedback?.classList.remove("hidden");
           } else {
             input.classList.remove(`text-red-500`);
-            feedback.classList.add("hidden");
+            feedback?.classList.add("hidden");
           }
         });
       }

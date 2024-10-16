@@ -13,9 +13,11 @@ const RegistrationPage = () => {
       name: `${data.get("firstName")} ${data.get("lastName")}`,
       email: data.get("email"),
       password: data.get("password"),
-      phone: data.get("phoneNumber"),
+      mobile: data.get("phoneNumber"),
       city: data.get("city"),
     };
+
+    console.log(submitData)
 
     try {
       const response = await fetch("api/methods", {

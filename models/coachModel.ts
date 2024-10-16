@@ -25,6 +25,9 @@ const CoachSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  mobile: {
+    type: String,
+  },
   city: {
     type: String,
   },

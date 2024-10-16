@@ -1,6 +1,8 @@
 export interface CoachDataType {
   name: string;
+  email: string;
   city: string;
+  mobile: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -8,6 +10,8 @@ export interface CoachDataType {
 export interface UpdateCoachDataType {
   name?: string;
   city?: string;
+  mobile: string;
+  email: string;
   updatedAt?: Date;
 }
 

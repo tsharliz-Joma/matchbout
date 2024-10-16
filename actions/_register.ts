@@ -1,6 +1,6 @@
 "use server";
 import {connectToDatabase} from "@/app/lib/mongodb";
-import Coach from "@/models/coaches";
+import Coach from "@/models/coachModel";
 import bcrypt from "bcryptjs";
 
 export const register = async (values: any) => {

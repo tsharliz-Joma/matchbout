@@ -7,13 +7,11 @@ import {
   updateCoach,
 } from "@/app/lib/mongodb-actions/coach";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   await connectToDatabase();
   const body = await req.json();
   try {
-    await createCoach(body, res).then((response) => {
-      return res.json();
-    });
+    await createCoach(body);
     return Response.json({message: "Coach added successfully"}, {status: 201});
   } catch (err) {
     return Response.json({error: "Failed to add coach"}, {status: 500});
