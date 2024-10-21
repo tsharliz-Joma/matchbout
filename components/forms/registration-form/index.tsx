@@ -3,14 +3,17 @@ import React, {useState, useRef} from "react";
 import {AlertCircle, MapPin} from "lucide-react";
 import {useGeolocation} from "@/hooks/useGeolocation";
 import {getCityFromCoordinates} from "@/app/lib/utils";
+import {RegistrationFormPropsModel} from "./RegistrationForm.model";
 
-const RegistrationForm = ({handleSubmit}) => {
-  const [passwordMatch, setPasswordMatch] = useState(true);
-  const [city, setCity] = useState("");
+const RegistrationForm = ({handleSubmit}: RegistrationFormPropsModel) => {
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
+  const [city, setCity] = useState<string>("");
   const {location, error: geoError, loading} = useGeolocation();
-  const [geocodingError, setGeocodingError] = useState(null);
-  const formRef = useRef(null);
-  const [detectingLocation, setDetectingLocation] = useState(false);
+  const [geocodingError, setGeocodingError] = useState<any>(null);
+  const formRef = useRef<any>(null);
+  const [detectingLocation, setDetectingLocation] = useState<boolean>(false);
 
   const detectLocation = async () => {
     setDetectingLocation(true);
@@ -64,8 +67,11 @@ const RegistrationForm = ({handleSubmit}) => {
     }
   };
 
-  const handleConfirmPassword = (event) => {
-    const password = document.getElementById("password").value;
+  const handleConfirmPassword = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const confirmPasswordValue = event.target.value;
+    setConfirmPassword(confirmPasswordValue);
     setPasswordMatch(password === event.target.value);
   };
 

@@ -1,13 +1,14 @@
 "use client";
 import React, {useState, useEffect} from "react";
 import RegistrationForm from "@/components/forms/registration-form";
+import {FormData} from "./registration.model";
 
 const RegistrationPage = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (data: FormData) => {
     setLoading(true);
     const submitData = {
       name: `${data.get("firstName")} ${data.get("lastName")}`,
@@ -16,8 +17,6 @@ const RegistrationPage = () => {
       mobile: data.get("phoneNumber"),
       city: data.get("city"),
     };
-
-    console.log(submitData)
 
     try {
       const response = await fetch("api/methods", {

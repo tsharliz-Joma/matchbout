@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     "app/pages/api/page.jsx",
-    "app/registration/page.jsx"
+    "app/registration/page.tsx"
   ],
   "exclude": ["node_modules"]
 }
