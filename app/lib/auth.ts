@@ -39,7 +39,7 @@ export const authOptions = {
     }),
   ],
   pages: {
-    login: "/auth/login",
+    login: "/auth/Login",
   },
   callbacks: {
     // Add user access token and user id to the JWT token

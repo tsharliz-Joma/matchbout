@@ -5,4 +5,5 @@ export interface FormData {
   password: string;
   mobile: string;
   city: string;
+  handleSubmit: (data: FormData) => void;
 }

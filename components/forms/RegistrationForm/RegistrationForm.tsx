@@ -11,8 +11,8 @@ const RegistrationForm = ({handleSubmit}: RegistrationFormPropsModel) => {
   const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
   const [city, setCity] = useState<string>("");
   const {location, error: geoError, loading} = useGeolocation();
-  const [geocodingError, setGeocodingError] = useState<any>(null);
-  const formRef = useRef<any>(null);
+  const [geocodingError, setGeocodingError] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const [detectingLocation, setDetectingLocation] = useState<boolean>(false);
 
   const detectLocation = async () => {
@@ -72,7 +72,7 @@ const RegistrationForm = ({handleSubmit}: RegistrationFormPropsModel) => {
   ) => {
     const confirmPasswordValue = event.target.value;
     setConfirmPassword(confirmPasswordValue);
-    setPasswordMatch(password === event.target.value);
+    setPasswordMatch(password === confirmPasswordValue);
   };
 
   return (

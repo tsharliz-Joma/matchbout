@@ -9,3 +9,5 @@ const Fighters = ({data}) => {
     </>
   );
 };
+
+export default Fighters;
